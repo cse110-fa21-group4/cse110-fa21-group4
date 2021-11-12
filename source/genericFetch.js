@@ -1,10 +1,10 @@
 export class genericFetchClass {
-  constructor(input) {
+  constructor (input) {
     this.options = input
     this.data = {}
   }
 
-  static async genericFetchFunc(input) {
+  static async genericFetchFunc (input) {
     await axios.request(input.options).then(function (response) {
       input.data = response.data
     }).catch(function (error) {
