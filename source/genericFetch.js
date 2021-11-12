@@ -1,5 +1,5 @@
 export class genericFetch_c {
-    data={};
+    data = {};
     constructor(input){
         this.options = input;
     }
