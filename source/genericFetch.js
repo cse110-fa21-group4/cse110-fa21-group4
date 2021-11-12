@@ -6,7 +6,7 @@ export class genericFetch_c {
 
     static async genericFetch_f(input) {
         await axios.request(input.options).then(function(response){
-            input.data= response.data;
+            input.data = response.data;
         }).catch(function(error){
             console.log(error);
         })
