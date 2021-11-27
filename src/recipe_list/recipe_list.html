@@ -23,7 +23,17 @@
 </head>
 
 <body>
-    <section class="section--recipe-cards shown">
+    <!-- navbar -->
+    <div id="navButton">
+      <button class="openbtn" onclick="openNav()">&#9776;</button>
+    </div>
+    <div id="sideNavbar" class="sidebar">
+      <a href="/src/home/home.html">Home</a>
+      <a href="/src/recipe_list/recipe_list.html">Recipe List</a>
+      <a href="#Favorites">Favorites</a>
+    </div>
+  
+  <section class="section--recipe-cards shown">
     <header>
       <nav>
         <a href="/src/home/home.html">
@@ -34,15 +44,6 @@
     <div class="search-container">
           <input type="text" placeholder="SEARCH RECIPE" class="search-bar">
           <button class="search-button">SEARCH</button>
-    </div>
-    <!-- navbar -->
-    <div id="navButton">
-      <button class="openbtn" onclick="openNav()">&#9776;</button>
-    </div>
-    <div id="sideNavbar" class="sidebar">
-      <a href="/src/home/home.html">Home</a>
-      <a href="/src/recipe_list/recipe_list.html">Recipe List</a>
-      <a href="#Favorites">Favorites</a>
     </div>
     <main>
         <!-- Template cards,  keep for reference -->
@@ -148,7 +149,7 @@
         </main>
         </section>
     <section class="section--recipe-expand">
-      <recipe-expand></recipe-expand>
+      <p>HELLO!</p>
     </section>
 
 

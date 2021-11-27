@@ -86,7 +86,7 @@ function createRecipeCards () {
     element.data = localStorage[`${id}`];
     element.id = id;
 
-    const page = id + 'expand';
+    const page = 'expand-' + id;
     router.addPage(page, function () {
       document.querySelector('.section--recipe-cards').classList.remove('shown');
       document.querySelector('.section--recipe-expand').classList.add('shown');
@@ -96,6 +96,11 @@ function createRecipeCards () {
     main.appendChild(element);
   });
 }
+/**
+ * Binding recipe cards to expand functionality by click
+ * @param {*} recipeCard the recipe from the recipe list
+ * @param {*} pageName address of the page the expand will be stored in
+ */
 function bindRecipeCard (recipeCard, pageName) {
   recipeCard.addEventListener('click', e => {
     if (e.path[0].nodeName === 'A') return;
@@ -128,7 +133,6 @@ function searchRecipes () {
     return;
   }
   console.log(input);
-
   // pass over to getRecipesNotContainingKeyword
   const myArr = getRecipesNotContainingKeyword(input);
   console.log(myArr.length);
