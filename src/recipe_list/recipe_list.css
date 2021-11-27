@@ -4,7 +4,9 @@ body {
     background-color: #AD9169;
     color:  #9e5f32;
 }
-
+section:not(section.shown) {
+  display: none;
+}
 .title {
     font-family:'Bebas Neue', cursive;
     text-align: center;

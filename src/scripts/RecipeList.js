@@ -1,4 +1,5 @@
 import { searchForKey, getInstructionSteps } from './searchKey.js';
+import { Router } from './Router.js';
 import { markFav, unFav } from './FavoriteRecipe.js';
 
 // SEARCH BAR BUTTON
@@ -8,10 +9,29 @@ searchBar.addEventListener('click', searchRecipes);
 
 window.addEventListener('DOMContentLoaded', init);
 const localStorage = window.localStorage;
+const router = new Router(function () {
+  /** 
+   * TODO - Part 1 - Step 1
+   * Select the 'section.section--recipe-cards' element and add the "shown" class
+   * Select the 'section.section--recipe-expand' element and remove the "shown" class
+   * 
+   * You should be using DOM selectors such as document.querySelector() and
+   * class modifications with the classList API (e.g. element.classList.add(),
+   * element.classList.remove())
+   * 
+   * This will only be two single lines
+   * If you did this right, you should see just 1 recipe card rendered to the screen
+   */
+  document.querySelector('section.section--recipe-cards').classList.add('shown');
+
+  document.querySelector('section.section--recipe-expand').classList.remove('shown');
+});
 
 async function init () {
   bindEnterKey();
   createRecipeCards();
+  bindEscKey();
+  bindPopstate();
 
   // now we have local storage with the hashtable (title->id) at key 0
   // and then the rest of local storage filled with id->json files
@@ -64,9 +84,38 @@ async function init () {
       const element = document.createElement('recipe-card');
       element.data = localStorage[`${id}`];
       element.id = id;
+
+      const page = id;
+     router.addPage(page, function () {
+        document.querySelector('.section--recipe-cards').classList.remove('shown');
+        document.querySelector('.section--recipe-expand').classList.add('shown');
+        document.querySelector('recipe-expand').data = localStorage[`${id}`];
+     });
+     bindRecipeCard(element, page);
+
+
       main.appendChild(element);
     });
   }
+  function bindRecipeCard(recipeCard, pageName) {
+  recipeCard.addEventListener('click', e => {
+     if (e.path[0].nodeName == 'A') return;
+     router.navigate(pageName);
+  });
+}
+function bindEscKey() {
+  /**
+   * TODO - Part 1 Step 5
+   * For this step, add an event listener to document for the 'keydown' event,
+   * if the escape key is pressed, use your router to navigate() to the 'home'
+   * page. This will let us go back to the home page from the detailed page.
+   */
+  document.addEventListener('keydown', e => {
+     if (e.key === "Escape") {
+        router.navigate('home');
+     }
+  });
+}
   
   /**
    * **************************SEARCHRECIPES FUNCTION************************** *
@@ -193,3 +242,20 @@ async function init () {
     }
   })
   }
+  function bindPopstate() {
+  /**
+   * TODO - Part 1 Step 6
+   * Finally, add an event listener to the window object for the 'popstate'
+   * event - this fires when the forward or back buttons are pressed in a browser.
+   * If your event has a state object that you passed in, navigate to that page,
+   * otherwise navigate to 'home'.
+   * 
+   * IMPORTANT: Pass in the boolean true as the second argument in navigate() here
+   * so your navigate() function does not add your going back action to the history,
+   * creating an infinite loop
+   */
+  window.addEventListener('popstate', e => {
+     if (e.state) router.navigate(e.state['page'], true);
+     else router.navigate('home', true);
+  })
+}
