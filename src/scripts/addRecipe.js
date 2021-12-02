@@ -1,7 +1,9 @@
 // should recieve a website url to be inputed
 // import {extraction, forceExtraction} from '../source/personalsave.js'; in main
 // var x = extraction('https://foodista.com/recipe/ZHK4KPB6/chocolate-crinkle-cookies'); to try it out in main
-export async function extraction (input) {
+module.exports = {extraction, forceExtraction};
+const axios = require('axios');
+async function extraction (input) {
   let data = {};
   console.log('using');
   const format = {
@@ -25,7 +27,7 @@ export async function extraction (input) {
     console.log(error);
   });
 }
-export async function forceExtraction (input) {
+async function forceExtraction (input) {
   let data = {};
   console.log('using');
   const format = {

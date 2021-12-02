@@ -14,7 +14,7 @@ import { ComplexSearch } from './apiComplexSearch.js';
 import { GenericFetch } from './genericFetch.js';
 
 // Backend devs will switch up using their own spoonacular key for fetching
-const API_KEY = '85859c45fa7949ec8b915c61690f2ce1';
+const API_KEY = '25a57bde9e504ec9a6717d2b4b87a753';
 
 window.addEventListener('DOMContentLoaded', init);
 // LOCAL STORAGE
