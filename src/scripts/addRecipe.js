@@ -1,3 +1,5 @@
+module.exports = { extraction, checkDup };
+
 // should recieve a website url to be inputed
 const APIKey = '85859c45fa7949ec8b915c61690f2ce1';
 
@@ -8,8 +10,10 @@ const localStorage = window.localStorage;
 // promte user to enter data for add new recipe
 const addBar = document.querySelector('.add-container');
 const inputHTML = document.querySelector('.add-bar');
-addBar.querySelector('button').addEventListener('click', addRecipe);
 
+if(addBar){
+  addBar.querySelector('button').addEventListener('click', addRecipe);
+}
 async function extraction (input) {
   let data = {};
   console.log('using');
@@ -59,7 +63,7 @@ async function forceExtraction (input) {
 /**
  * add Recipe to recipe_list.html, update localStorage
  */
-async function addRecipe () {
+ async function addRecipe () {
   const inputData = inputHTML.value;
 
   // grab maps from localStorage for insertion and replacement
