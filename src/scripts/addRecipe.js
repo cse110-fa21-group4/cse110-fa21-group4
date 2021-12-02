@@ -1,10 +1,4 @@
 // should recieve a website url to be inputed
-<<<<<<< HEAD
-// import {extraction, forceExtraction} from '../source/personalsave.js'; in main
-// var x = extraction('https://foodista.com/recipe/ZHK4KPB6/chocolate-crinkle-cookies'); to try it out in main
-module.exports = {extraction, forceExtraction};
-const axios = require('axios');
-=======
 const APIKey = '85859c45fa7949ec8b915c61690f2ce1';
 
 // https://foodista.com/recipe/ZHK4KPB6/chocolate-crinkle-cookies
@@ -16,7 +10,6 @@ const addBar = document.querySelector('.add-container');
 const inputHTML = document.querySelector('.add-bar');
 addBar.querySelector('button').addEventListener('click', addRecipe);
 
->>>>>>> origin/backendBranch
 async function extraction (input) {
   let data = {};
   console.log('using');
