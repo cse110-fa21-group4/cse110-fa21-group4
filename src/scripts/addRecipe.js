@@ -14,79 +14,79 @@
  
  
  //window.addEventListener('DOMContentLoaded', init);
- // extraction is a function that calls spoonacular api and returns a json for a specific 
+ // extraction is a function that calls spoonacular api and returns a json for a specific  
  // recipie based on the input url that was passed in 
-  async function extraction (input) {
-   let data = {};
-   console.log('using');
-   // format is the object that will be passed into the request function and the params
-   // will be used by spoonacular to determine what it needs to do when looking for and 
-   // returning the json for the recipe 
-   const format = {
-     method: 'GET',
-     url: 'https://api.spoonacular.com/recipes/extract',
-     params: {
-       url: input,
-       // we keep forceExtraction to be false as this is a slower function that 
-       // should only be used if information is missing and extraction doesn't work 
-       forceExtraction: false,
-       analyze: false,
-       includeNutrition: false,
-       includeTaste: false,
-       apiKey: APIKey
-     }
-   };
-   // async request from spoonacular api 
-   await axios.request(format).then(function (response) {
-     // save the data from the response we got to our data variable object
-     data = response.data;
-     // console.log(data);
-     // if the function doesn't work for some reason we can try forceExtraction to 
-     // get us a JSON and if that still doesn't work we will log the error in the 
-     // next function 
-   }).catch(function (error) {
-     data = forceExtraction(input);
-     //console.log(data);
-     console.log(error);
-   });
-   // return the JSON object for the recipe we extracted from a website 
-   return data;
- 
- }
- // forceExtraction is a function that calls spoonacular api and returns a json for a specific 
- // recipe based on the input url that was passed in. It should be used when extraction doesn't work
-  async function forceExtraction (input) {
-   let data = {};
-   console.log('using');
-   // we use a similar format object and param to call spoonacular 
-   const format = {
-     method: 'GET',
-     url: 'https://api.spoonacular.com/recipes/extract',
-     params: {
-       url: input,
-       // forceExtraction is set to true so spoonacular knows to use a different operation from 
-       // extracion. It will be slower but should still return a json 
-       forceExtraction: true,
-       analyze: false,
-       includeNutrition: false,
-       includeTaste: false,
-       apiKey: APIKey
-     }
-   };
-   // async request from spoonacular api 
-   await axios.request(format).then(function (response) {
+ async function extraction (input) {
+  let data = {};
+  console.log('using');
+  // format is the object that will be passed into the request function and the params
+  // will be used by spoonacular to determine what it needs to do when looking for and 
+  // returning the json for the recipe 
+  const format = {
+    method: 'GET',
+    url: 'https://api.spoonacular.com/recipes/extract',
+    params: {
+      url: input,
+      // we keep forceExtraction to be false as this is a slower function that 
+      // should only be used if information is missing and extraction doesn't work 
+      forceExtraction: false,
+      analyze: false,
+      includeNutrition: false,
+      includeTaste: false,
+      apiKey: APIKey
+    }
+  };
+  // async request from spoonacular api 
+  await axios.request(format).then(function (response) {
     // save the data from the response we got to our data variable object
-     data = response.data;
-     // log the JSON to see if anything is weird 
-     console.log(JSON.stringify(data));
-     // return the JSON data we got from spoonacular api call 
-     return data;
-     // if there is still an error we have to catch it and log it 
-   }).catch(function (error) {
-     //console.log(data);
-     console.log(error);
-   });
- }
+    data = response.data;
+    // console.log(data);
+    // if the function doesn't work for some reason we can try forceExtraction to 
+    // get us a JSON and if that still doesn't work we will log the error in the 
+    // next function 
+  }).catch(function (error) {
+    data = forceExtraction(input);
+    //console.log(data);
+    console.log(error);
+  });
+  // return the JSON object for the recipe we extracted from a website 
+  return data;
+
+}
+// forceExtraction is a function that calls spoonacular api and returns a json for a specific 
+// recipe based on the input url that was passed in. It should be used when extraction doesn't work
+ async function forceExtraction (input) {
+  let data = {};
+  console.log('using');
+  // we use a similar format object and param to call spoonacular 
+  const format = {
+    method: 'GET',
+    url: 'https://api.spoonacular.com/recipes/extract',
+    params: {
+      url: input,
+      // forceExtraction is set to true so spoonacular knows to use a different operation from 
+      // extracion. It will be slower but should still return a json 
+      forceExtraction: true,
+      analyze: false,
+      includeNutrition: false,
+      includeTaste: false,
+      apiKey: APIKey
+    }
+  };
+  // async request from spoonacular api 
+  await axios.request(format).then(function (response) {
+   // save the data from the response we got to our data variable object
+    data = response.data;
+    // log the JSON to see if anything is weird 
+    console.log(JSON.stringify(data));
+    // return the JSON data we got from spoonacular api call 
+    return data;
+    // if there is still an error we have to catch it and log it
+  }).catch(function (error) {
+    //console.log(data);
+    console.log(error);
+  });
+}
  
  async function addRecipe()
  {
