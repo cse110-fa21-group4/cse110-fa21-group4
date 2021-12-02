@@ -66,7 +66,7 @@ function searchRecipes () {
   console.log(myArr.length);
   // console.log(localStorage.length);
 
-  if (myArr.length === localStorage.length - 2) {
+  if (myArr.length === localStorage.length - 5) {
     alert('No recipes matching search found for ' + input);
     return;
   }
