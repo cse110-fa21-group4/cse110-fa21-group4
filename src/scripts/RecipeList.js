@@ -99,6 +99,11 @@ function resetCards () {
    * 'chocolate'                                                        *
    * ****************************************************************** *
    */
+  /**
+ * Search for the value of the `key` in the given object `data`
+ * @param {String} keyword
+ * @returns {*} The value associated with the key if found
+ */
 function getRecipesNotContainingKeyword (keyword) {
   // couple base cases
   let input = keyword.toLowerCase();
