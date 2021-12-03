@@ -1,8 +1,12 @@
-module.exports = { extraction, checkDup };
+/** ADD RECIPE JAVASCRIPT FILE.
+ *  Takes input url from user and uploads a new json file, creating a recipe card
+ *  Functionallity also handles adding a duplicate url or adding the url again after it was previously deleted
+ */
 
 // should recieve a website url to be inputed
 const APIKey = '85859c45fa7949ec8b915c61690f2ce1';
 
+// test url
 // https://foodista.com/recipe/ZHK4KPB6/chocolate-crinkle-cookies
 
 const localStorage = window.localStorage;
@@ -11,9 +15,16 @@ const localStorage = window.localStorage;
 const addBar = document.querySelector('.add-container');
 const inputHTML = document.querySelector('.add-bar');
 
-if(addBar){
-  addBar.querySelector('button').addEventListener('click', addRecipe);
+window.addEventListener('DOMContentLoaded', init);
+async function init () {
+  bindEnterKeyforAdd();
 }
+
+/**
+ * Normal extract that makes call to API to obtain json file from the
+ * url the user inserted.
+ * @param {string} input takes in url that user inserted into textarea
+ */
 async function extraction (input) {
   let data = {};
   console.log('using');
@@ -37,6 +48,12 @@ async function extraction (input) {
   });
   return data;
 }
+
+/**
+ * Forced extract that makes call to API to obtain json file from the
+ * url the user inserted.
+ * @param {string} input takes in url that user inserted into textarea
+ */
 async function forceExtraction (input) {
   let data = {};
   console.log('using');
@@ -61,13 +78,15 @@ async function forceExtraction (input) {
 }
 
 /**
- * add Recipe to recipe_list.html, update localStorage
+ * ADDRECIPE function will take url input by user, check if it's a duplicate, and then extract the json
+ * from the website. Will then insert into local storage and all the hash maps, and then
+ * create the recipe card that will be viewable at the top of the recipe list.
  */
  async function addRecipe () {
   const inputData = inputHTML.value;
 
   // grab maps from localStorage for insertion and replacement
-  const hashMap = new Map(JSON.parse(localStorage['0']));
+  let hashMap = new Map(JSON.parse(localStorage['0']));
   const favMap = new Map(JSON.parse(localStorage['2']));
   const delMap = new Map(JSON.parse(localStorage['3']));
   const urlMap = new Map(JSON.parse(localStorage['5']));
@@ -75,7 +94,6 @@ async function forceExtraction (input) {
   // BASE CASES PRIOR TO CONTINUING TO ALTER LOCAL STORAGE:
   // add recipe only if not duplicated
   if (checkDup(inputData)) {
-
     // returned true for duplicate, so now check if it was marked true in the delmap
     const id = urlMap.get(inputData);
     if (delMap.get(id) === true) {
@@ -87,7 +105,7 @@ async function forceExtraction (input) {
       // now unhide the card
       document.getElementById(id).classList.remove('deleted');
       return;
-    } 
+    }
 
     // if it wasn't in delmap, it's a duplicate add
     alert('Duplicated recipe.');
@@ -95,7 +113,6 @@ async function forceExtraction (input) {
   }
 
   // IF WE GET HERE, THAT MEANS THE RECIPE HAS NEVER BEEN ADDED BEFORE, SO DIDN'T EXIST IN URLMAP
-
   const recipetoHash = await extraction(inputData);
   // Now check if the url is valid
   if (typeof recipetoHash === 'undefined') {
@@ -114,11 +131,13 @@ async function forceExtraction (input) {
   const validID = Math.floor(Math.random() * 1000);
 
   // set values in maps for newly added card
-  hashMap.set(recipetoHash.title, validID);
+  // set the new item at index 0 of hashMap to let new card always go to top
+  hashMap = insertAtIndex(0, recipetoHash.title, validID, hashMap);
+  // hashMap.set(recipetoHash.title,validID);
   favMap.set(validID, false);
   delMap.set(validID, false);
   urlMap.set(recipetoHash.sourceUrl, validID); // urlmap's value is for store id to check for dulipated.
-  
+
   // also edit the inner ID of json file
   recipetoHash.id = validID;
   const recipeData = JSON.stringify(recipetoHash);
@@ -136,7 +155,7 @@ async function forceExtraction (input) {
   if (delMap.get(element.id) === true) {
     element.classList.add('deleted');
   }
-  main.appendChild(element);
+  main.insertBefore(element, main.firstChild);
 
   alert('Your new card is inserted~');
 
@@ -161,4 +180,30 @@ function checkDup (url) {
 
   // if we get here then url has been inserted. could possibly be hidden from being marked true in delmap
   return true;
+}
+
+/**
+ * Use array.splice function to insert item at certain index to map
+ * @param {int} insertIndex url which comes from user input
+ *  @param {String} key url which comes from user input
+ * @param {int} value url which comes from user input
+ * @returns {Map} return the Map which is updated
+ */
+function insertAtIndex (insertIndex, key, value, ourMap) {
+  const convertArr = Array.from(ourMap);
+  convertArr.splice(insertIndex, 0, [key, value]);
+  return new Map(convertArr);
+}
+
+/**
+   * *************BINDENTERKEY FUNCTION************* *
+   * Set enter key works for search bar              *
+   * *********************************************** *
+   */
+function bindEnterKeyforAdd () {
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      addRecipe();
+    }
+  });
 }
