@@ -158,6 +158,7 @@ function checkDup (url) {
  * @returns {Map} return the Map which is updated
  */
 function insertAtIndex (insertIndex, key, value, ourMap) {
+  console.log("push test again");
   const convertArr = Array.from(ourMap);
   convertArr.splice(insertIndex, 0, [key, value]);
   return new Map(convertArr);
