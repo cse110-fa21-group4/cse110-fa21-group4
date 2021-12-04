@@ -52,6 +52,11 @@ function createRecipeCards () {
       window.location.href = '../recipe_expand/recipe_expand.html' + '#' + element.id;
     });
   });
+
+  let buttomm = document.createElement("ButtomPage");
+  buttomm.innerHTML = "Page buttom";
+  buttomm.setAttribute("id", "Buttom");
+  main.append(buttomm);
 }
 
 /**
