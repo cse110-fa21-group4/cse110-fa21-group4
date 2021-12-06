@@ -176,6 +176,10 @@ class RecipeCardExpand extends HTMLElement {
     recipeInputFormInput.setAttribute('type', 'text');
     recipeInputForm.appendChild(recipeInputFormInput);
     recipeInputFormInput.value = searchForKey(recipeData, 'servings');
+    recipeInputForm.addEventListener('submit', function (e) { 
+      e.preventDefault();
+      saveRecipe();
+      return false; });
     recipeInputForm.classList.add('hidden');
     recipeInputFormInput.classList.add('hidden');
     recipeExpandContainer.appendChild(recipeInputForm);
@@ -199,7 +203,7 @@ class RecipeCardExpand extends HTMLElement {
     editButtonDiv.classList.add('edit-div');
     const editButton = document.createElement('button');
     editButton.classList.add('editbtn');
-    editButton.innerText = 'Edit';
+    editButton.innerText = 'Edit Serving Size';
     editButton.addEventListener('click', () => { editRecipe(); });
     editButtonDiv.appendChild(editButton);
     recipeExpandContainer.appendChild(editButtonDiv);
