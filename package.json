@@ -1,48 +1,46 @@
 {
-  "devDependencies": {
-    "@babel/core": "^7.16.0",
-    "@babel/eslint-parser": "^7.16.3",
-    "@babel/eslint-plugin": "^7.14.5",
-    "@babel/preset-env": "^7.16.4",
-    "@html-eslint/eslint-plugin": "^0.12.0",
-    "@html-eslint/parser": "^0.12.0",
-    "babel-core": "^6.26.3",
-    "babel-jest": "^27.4.2",
-    "babel-loader": "^8.2.3",
-    "eslint": "^7.32.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.1",
-    "jest": "^27.4.3",
-    "jest-puppeteer": "^6.0.2",
-    "puppeteer": "^12.0.1",
-    "standard": "^16.0.4"
-  },
-  "eslintConfig": {
-    "env": {
-      "browser": true
-    },
-    "globals": {
-      "axios": true
-    }
-  },
-  "babelConfig": {
-    "requireConfigFile": false
-  },
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "axios": "^0.24.0",
-    "minami": "^1.2.3",
-    "standard": "^16.0.4",
-    "stylelint": "^14.1.0"
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-router-dom": "^5.3.1",
+    "react-scripts": "^5.0.1",
+    "web-vitals": "^2.1.0"
   },
-  "babel": {},
+  "devDependencies": {
+    "eslint": "^8.14.0",
+    "eslint-plugin-html": "^6.2.0",
+    "eslint-plugin-react": "^7.29.4",
+    "jest": "^28.0.2",
+    "jest-environment-jsdom": "^28.0.2",
+    "jest-puppeteer": "^6.1.0",
+    "puppeteer": "^13.7.0"
+  },
   "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "jest",
-    "eslint:github-action": "eslint source/"
+    "eject": "react-scripts eject"
   },
   "jest": {
     "preset": "jest-puppeteer",
-    "verbose": true
+    "transform": {}
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
